@@ -11,11 +11,12 @@
     <name>CoffeeShop Api with Junit</name>
     <properties>
         <java.version>1.7</java.version>
+        <spring-data-releasetrain.version>Fowler-SR2</spring-data-releasetrain.version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.3.RELEASE</version>
+        <version>1.2.6.RELEASE</version>
     </parent>
     <dependencies>
         <dependency>
@@ -27,25 +28,31 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
     </dependencies>
 
-        <build>
-            <plugins>
-                <!-- Spring Boot Maven Plugin -->
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <configuration>
-                        <arguments>
-                            <argument>--spring.profiles.active=prod</argument>
-                            <argument>--spring.data.mongodb.uri=$MONGOLAB_URI</argument>
-                        </arguments>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <arguments>
+                        <argument>--spring.profiles.active=prod</argument>
+                        <argument>--spring.data.mongodb.uri=$MONGOLAB_URI</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-        </project>
+
+</project>
