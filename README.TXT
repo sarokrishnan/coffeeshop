@@ -18,6 +18,7 @@ Technology/tools Stack,
     Testing (JUnit/Assert)
     Java 1.7
     Tomcat (app runs on 8989 and unit test runs on 8888) refer application.properties in Java / Test directories respectively)
+    Deployed in Heroku
 
     Why i choose the above stack,
     with SPRING BOOT, SPRING DATA MONGODB its easy to get an application up and running in less time.
@@ -26,10 +27,14 @@ Technology/tools Stack,
 
 How to run the application,
     Clone the github project
-    In the terminal or in your editor (i used intellij) use the command mvn clean spring-boot:run
-    or run the java class Application , this will start tomcat and use http://localhost:8989
+    Run the java class Application(main-->java-->app-->Application.java , this will start tomcat and use http://localhost:8989
     Use rest client or POSTMAN to access the api, i used POSTMAN
 
+NOTE:
+To test the rest api in Heroku, please replace the below localhost url with HeroKu url
+https://coffeeshop-wego.herokuapp.com/
+
+For example, https://coffeeshop-wego.herokuapp.com/order/:id
 
 ORDER END POINTS:
 
