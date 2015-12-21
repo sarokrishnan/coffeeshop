@@ -189,3 +189,13 @@ PRODUCT end points:
     For all these above question one single answer is NoSQL (mongodb in our case), its just the document based not tied with RDBMS.
     Just add or modify the existing JSON documents and do the respective attribute, data type changes in model.
 
+    Heroku commands,
+    1) $ heroku create
+    2) $ heroku apps:rename new-name (if required)
+    3) $ heroku addons:create mongolab:sandbox
+    4) $ git push heroku master
+    5) $ heroku logs
+    6) $ heroku open
+
+    use POSTMAN or alternate rest client to access api deployed on heroku
+    Make sure , Procfile and application.yml configured correctly to deploy to heroku
