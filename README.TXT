@@ -19,7 +19,7 @@ Technology/tools Stack,
     Java 1.7
     Tomcat (app runs on 8989 and unit test runs on 8888) refer application.properties in Java / Test directories respectively)
 
-    Why i chose the above stack,
+    Why i choose the above stack,
     with SPRING BOOT, SPRING DATA MONGODB its easy to get an application up and running in less time.
     easy to configure, NoSQL helps altering the documents like adding new drinks , drink types, ingredients etc.
     Spring Data Mongo Repository handles the connections and its typesafe, for more information refer the above links.
