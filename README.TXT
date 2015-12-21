@@ -179,3 +179,14 @@ PRODUCT end points:
      http://localhost:8989/product/:id
      DELETE
      Success message : "message": "Product deleted successfully"
+
+
+     0) What if we want a new type of coffee, a new type of tea?
+     1) What if we want a new size?
+     2) How would you change the model to add hot/cold options?
+     3) (optional) How would you change the model to support adding condiments to drinks (perl, grass jelly,...)
+
+    For all these above question one single answer is NoSQL (mongodb in our case), its just the document based not tied with RDBMS.
+    Just add or modify the existing JSON documents and do the respective changes in its respective model code.
+
+    
