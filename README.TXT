@@ -18,7 +18,7 @@ Technology/tools Stack,
     Testing (JUnit/Assert)
     Java 1.7
     Tomcat (app runs on 8989 and unit test runs on 8888) refer application.properties in Java / Test directories respectively)
-    Deployed in Heroku
+    Deployed in Heroku/mongolab
 
     Why i choose the above stack,
     with SPRING BOOT, SPRING DATA MONGODB its easy to get an application up and running in less time.
@@ -35,6 +35,7 @@ To test the rest api in Heroku, please replace the below localhost url with Hero
 https://coffeeshop-wego.herokuapp.com/
 
 For example, https://coffeeshop-wego.herokuapp.com/order/:id
+MongoLab URL: https://www.mongolab.com/databases/heroku_42kb2xk1
 
 ORDER END POINTS:
 
