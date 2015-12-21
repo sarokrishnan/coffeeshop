@@ -47,7 +47,7 @@ public class OrderController {
   }
   
   @RequestMapping(method = RequestMethod.GET, value="/{orderId}")
-  public Order getproductDetails(@PathVariable("orderId") String orderId){
+  public Order getOrderDetails(@PathVariable("orderId") String orderId){
     return orderRepository.findOne(orderId);
   }
   
@@ -97,7 +97,7 @@ public class OrderController {
   public Map<String, Object> getAllOrders(){
     List<Order> orders = orderRepository.findAll();
     Map<String, Object> response = new LinkedHashMap<String, Object>();
-    response.put("totalProducts", orders.size());
+    response.put("totalorders", orders.size());
     response.put("order", orders);
     return response;
   }
@@ -106,7 +106,7 @@ public class OrderController {
   public Map<String, Object> getAllOrderBySize(@PathVariable("size") String size){
     List<Order> orders = orderRepository.findBySize(size);
     Map<String, Object> response = new LinkedHashMap<String, Object>();
-    response.put("totalProducts", orders.size());
+    response.put("totalorders", orders.size());
     response.put("order", orders);
     return response;
   }
@@ -115,7 +115,7 @@ public class OrderController {
   public Map<String, Object> getAllOrderByType(@PathVariable("type") String type){
     List<Order> orders = orderRepository.findByType(type);
     Map<String, Object> response = new LinkedHashMap<String, Object>();
-    response.put("totalProducts", orders.size());
+    response.put("totalorders", orders.size());
     response.put("order", orders);
     return response;
   }
