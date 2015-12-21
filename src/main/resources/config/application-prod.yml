@@ -1,0 +1,9 @@
+server:
+    port: 8989
+
+spring:
+    profiles:
+        active: prod
+    data:
+        mongodb:
+            database: heroku_42kb2xk1
