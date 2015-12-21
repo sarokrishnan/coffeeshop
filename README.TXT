@@ -187,5 +187,5 @@ PRODUCT end points:
      3) (optional) How would you change the model to support adding condiments to drinks (perl, grass jelly,...)
 
     For all these above question one single answer is NoSQL (mongodb in our case), its just the document based not tied with RDBMS.
-    Just add or modify the existing JSON documents and do the respective changes in its respective attribute, data type change in model.
+    Just add or modify the existing JSON documents and do the respective attribute, data type changes in model.
 
