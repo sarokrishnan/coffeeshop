@@ -31,9 +31,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
     </dependencies>
-    <profiles>
-    <profile>
-        <id>prod</id>
+
         <build>
             <plugins>
                 <!-- Spring Boot Maven Plugin -->
@@ -48,6 +46,5 @@
                 </plugin>
             </plugins>
         </build>
-    </profile>
-    </profiles>
+
         </project>
