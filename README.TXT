@@ -26,6 +26,7 @@ Technology/tools Stack,
     Spring Data Mongo Repository handles the connections and its typesafe, for more information refer the above links.
 
 How to run the application,
+
     Clone the github project
     Run the java class Application(main-->java-->app-->Application.java , this will start tomcat and use http://localhost:8989
     Use rest client or POSTMAN to access the api, i used POSTMAN
