@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+   <h2>WEGO - CoffeeShop - Ordering Page</h2></br>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#orderModal">Take Order</button></br>
+
+    <h5>All Orders List</h5></br>
+    <div class="input-group"> <span class="input-group-addon">Filter Order By</span>
+        <input id="filter" type="text" class="form-control" placeholder="Size, Type ,Customer Name.. Type Coffee or Tea Or Tall..">
+    </div>
+    <table id="orderTable" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Item</th>
+            <th>Type</th>
+            <th>Size</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody class="search">
+        </tbody>
+        <tfoot>
+        <tr>
+            <td/>
+            <td/>
+            <td/>
+            <td/>
+            <td class="total" id="total_price"></td>
+        </tr>
+        </tfoot>
+
+    </table>
+
+
+
+    </div>
+
+<!-- Modal -->
+<div id="orderModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Item</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+
+                        <label>Customer Name</label>
+
+                        <input style="width:20%;" type='text' class='form-control input-sm' id='customer'>
+
+                </div>
+                <br>
+                <div >
+                <table id="productTable" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <td>Item</td>
+                        <td>Type</td>
+                        <td>Quantity</td>
+                        <td>Size</td>
+                        <td>Add To Order</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+
+                </table>
+                </div>
+
+                    <label id="tp">Total</label>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn orderBtn btn-success" id="orderBtn">Order</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/handlebars-v3.0.3.js"> </script>
+<script  type='text/javascript'>
+
+
+    $(document).ready(function () {
+
+            var subtotal = 0;
+            var inc = 1;
+            var itemArray ;
+            var total_price =0;
+            var totalpriceObj = new Object();
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/order",
+                success: function(data){
+                    var tr;
+
+                    for (var i = 0; i < data.order.length; i++) {
+
+
+                     for (var j = 0; j < data.order[i].items.length; j++) {
+                        tr = $('<tr/>');
+                        tr.append("<td>" + data.order[i].cust_name + "</td>");
+                        tr.append("<td>" + data.order[i].items[j].item_name + "</td>");
+                        tr.append("<td>" + data.order[i].items[j].type + "</td>");
+                        tr.append("<td>" + data.order[i].items[j].size + "</td>");
+                        tr.append("<td class='price'>" + data.order[i].items[j].price + "</td>");
+
+                        $('#orderTable').append(tr);
+                     }
+                    }
+                    $('#orderTable').append(tr);
+
+
+                    $('.price').each(function() {
+
+                        subtotal += !isNaN(+$(this).html()) && +$(this).html();
+                    });
+
+                    $('#total_price').html('Total : ' + subtotal);
+
+                    }
+
+            });
+
+
+            $("#filter").keyup(function () {
+                var subtotal = 0;
+                var filtertext = $(this).val();
+                var regex = new RegExp(filtertext, 'i');
+                $('.search tr').hide().filter(function () {
+                    return regex.test($(this).text());
+                }).show();
+
+                $(".price:visible").each(function () {
+                    subtotal += !isNaN(+$(this).html()) && +$(this).html();
+                });
+                $('#total_price').html('Total : ' + subtotal);
+
+            });
+
+            $("#orderModal").on("show.bs.modal", function(e) {
+                $('#tp').html('');
+                itemArray = new Array()
+                total_price = 0;
+                inc = 1;
+                 $('#productTable tbody').remove();
+                  $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "/product",
+                        success: function(data){
+                           //clear the current content of the select
+                          // $select.html('');
+
+                           //iterate over the data and append a select option
+                           //$.each(data.products, function(idx, val){
+                             //$select.append('<option id="' + val.id + '">' + val.name + '</option>');
+                           //})
+                           $.each(data.products, function(arrayID,products) {
+
+                                var trd="";
+                                trd +="<tr>";
+
+
+                                $.each(products, function(key,value) {
+                                        if(key === 'name'){
+                                            trd +="<td><label class='cname'>"+value+"</label></td>";
+
+                                        }
+
+
+
+                                   // here `value` refers to the objects
+                                        if(key === 'price'){
+
+                                            trd+="<td><select class='form-control'>"
+                                            $.each(value, function(key1,value1) {
+
+                                                trd+="<option value="+value1+">"+key1+"</option>";
+                                            });
+
+                                            trd+="</select>";
+                                            trd+="</td>";
+                                            trd +="<td><button type='button' class='btn btn-primary addItem' >Add</button></td>";
+                                        }
+
+                                        if(key === 'type'){
+                                            trd +="<td>"+value+"</td>";
+                                            trd +="<td><input type='text' style='width:40%;' class='form-control input-sm quantity'></td>";
+
+
+                                        }
+
+
+
+                                });
+
+                                 $("#productTable").append(trd);
+                           });
+                        }
+
+
+
+                    });
+            });
+
+            $(".modal-body").on("click", ".btn", function() {
+                var qty = $(this).closest('tr').find('input').val();
+                if(qty.trim() == ''){
+                    alert('Enter # of quantity');
+                }else{
+                     var customer = $('#customer').val();
+                     var type = $(this).closest('tr').find('td:eq(1)').text();
+                     var itemname = $(this).closest('tr').find('label').text();
+                     //var qty = $(this).closest('tr').find('input').val();
+                     var price = $(this).closest('tr').find('select').val() * qty;
+                     var size = $(this).closest('tr').find('option:selected').text();
+                     total_price += price;
+                     inc += 1;
+                    var items = new Object();
+                    items.quantity = qty;
+                    items.type=type;
+                    items.price=price ;
+                    items.size=size;
+                    items.id=inc;
+                    items.item_name=itemname;
+                    itemArray.push(items);
+                    var myString = JSON.stringify(itemArray);
+
+                    $('#tp').text('Total Price: ' + total_price);
+
+                 }
+            });
+
+            $(".modal-footer").on("click", ".orderBtn", function() {
+                var customer = $('#customer').val();
+                if(customer.trim() == ''){
+                    alert('Enter customer name');
+                }else{
+
+                    var orderJsonObj = new Object();
+                    orderJsonObj.cust_name = customer;
+                    orderJsonObj.items = itemArray;
+                    orderJsonObj.total_price = total_price;
+                    var orderString = JSON.stringify(orderJsonObj);
+
+                    $.ajax({
+                        url: '/order',
+                        type: 'post',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json',
+                        success: function (data) {
+                            alert(data.message);
+                            $('#orderModal').modal('hide');
+                            location.reload();
+                        },
+                        data: orderString
+                    });
+
+
+                }
+            });
+
+    });
+
+
+
+</script>
+</html>
