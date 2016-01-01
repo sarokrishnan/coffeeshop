@@ -38,7 +38,7 @@ public class OrderController {
     Order order = new Order(
             ordersMap.get("cust_name").toString(),
             orderedItem,
-            Float.parseFloat((String)ordersMap.get("total_price")));
+            Float.parseFloat(ordersMap.get("total_price").toString()));
     
     Map<String, Object> response = new LinkedHashMap<String, Object>();
     response.put("message", "Order created successfully");
@@ -74,7 +74,7 @@ public class OrderController {
     Order order = new Order(
             ordersMap.get("cust_name").toString(),
             orderedItem,
-            Float.parseFloat((String)ordersMap.get("total_price")));
+            Float.parseFloat(ordersMap.get("total_price").toString()));
     order.setId(orderId);
 
     Map<String, Object> response = new LinkedHashMap<String, Object>();
